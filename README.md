@@ -31,18 +31,20 @@ If the target section appears in the response, it is considered open.
 
 - Python 3.9+
 - 'requests'
-- (Optional) Twilio account to manage SMS notifications
+- ntfy for push notifications
 
 Install dependecies:
 
 ```bash
-pip install requests twilio python-dotenv
+pip install requests python-dotenv
 ```
 # Configuration
 
 ## Environment Variables
 
 Sensitive credentials are stored in environment variables and are **not included** in this repository.
+
+An example .env file can be located in the repository that includes a template to configure your ntfy topic for push notifications.
 
 # Usage
 
