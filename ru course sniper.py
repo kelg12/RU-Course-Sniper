@@ -2,9 +2,17 @@
 import requests
 import time
 import os
-from twilio.rest import Client
+from dotenv import load_dotenv
+load_dotenv()
 
 URL = "https://classes.rutgers.edu/soc/api/openSections.json"
+
+SECTIONS_TO_WATCH = {
+    "13950" : False,
+    "14310" : False,
+    "14311" : False,
+    "14496" : False,
+}
 
 def get_open_sections(year=2026, term=1, campus="NB"):
     response = requests.get(
@@ -14,53 +22,48 @@ def get_open_sections(year=2026, term=1, campus="NB"):
     response.raise_for_status()
     return set(response.json())
 
-def watch_section(index, interval=60):
-    key = f"{index}"
-    was_open = False
-
-    print(f"Watching {key}... checking every {interval} seconds.")
+def watch_sections(indices, interval=60):
+  
+    print(f"Watching {len(indices)} sections... checking every {interval} seconds.")
 
     while True:
         try:
             open_sections = get_open_sections()
-            is_open = key in open_sections
 
-            if is_open and not was_open:
-                msg = f"Section {key} is now OPEN!"
-                print(msg)
-                send_text(msg)
-                was_open = True
-                break
+            for key, was_open in indices.items():
+                is_open = key in open_sections
 
-            was_open = is_open
+                if is_open and not was_open:
+                    msg = f"Section {key} is now OPEN!"
+                    print(msg)
+                    send_push(msg)
+                    indices[key] = True
+                
+                elif not is_open:
+                    indices[key] = False
 
         except Exception as e:
-            print(f"Error checking section {key}: {e}")
+            print(f"Error checking sections: {e}")
 
         time.sleep(interval)
       
-def send_text(message):
-    client = Client(
-        os.environ["TWILIO_ACCOUNT_SID"],
-        os.environ["TWILIO_AUTH_TOKEN"]
-    )
+def send_push(message):
+    topic = os.environ["NTFY_TOPIC"]
+    url = f"https://ntfy.sh/{topic}"
 
-    client.messages.create(
-        body=message,
-        from_=os.environ["TWILIO_PHONE"],
-        to=os.environ["MY_PHONE"]
+    requests.post(
+        url,
+        data=message.encode("utf-8"),
+        headers={
+            "Title": "Rutgers Course Sniper",
+            "Priority": "5",
+        },
+        timeout=10,
     )
-
-def is_section_open(index, year=2026, term=1, campus="NB"):
-    open_sections = get_open_sections(year, term, campus)
-    key = f"{index}"
-    return key in open_sections
 
 # Example usage:
 
-   #if is_section_open("14496"):
-   # print("Section is OPEN")
-   #else:
-   # print("Section is CLOSED")
-watch_section(13949)
+watch_sections(SECTIONS_TO_WATCH)
+
+
 
