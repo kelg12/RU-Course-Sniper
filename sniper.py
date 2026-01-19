@@ -2,6 +2,8 @@
 import requests
 import time
 import os
+import json
+from pathlib import Path
 from dotenv import load_dotenv
 load_dotenv()
 from datetime import datetime, time as dtime, timedelta
@@ -9,12 +11,14 @@ from zoneinfo import ZoneInfo
 
 URL = "https://classes.rutgers.edu/soc/api/openSections.json"
 
-SECTIONS_TO_WATCH = {  # Section Index : is_open boolean
-    "13950" : False,
-    "14310" : False,
-    "14311" : False,
-    "14496" : False,
-}
+CONFIG_PATH = Path(__file__).parent / "config.json"
+
+def load_config():
+    with open(CONFIG_PATH, "r") as f:
+        return json.load(f)
+
+def initialize_sections(config):
+    return {section: False for section in config["sections"]}
 
 EASTERN = ZoneInfo("America/New_York")
 BLACKOUT_START = dtime(2, 0)  # 2:00 AM
@@ -93,9 +97,20 @@ def sleep_until_morning(now): # Sleeps until the end of the blackout window.
     print(f"WebReg offline. Sleeping until {wake_time.strftime('%I:%M %p')}")
     time.sleep(seconds)
 
-# Example usage:
+def main(): # Main function loads config file and starts watching sections.
+    config = load_config()
 
-watch_sections(SECTIONS_TO_WATCH)
+    poll_interval = config.get("poll_interval", 60)
+    sections = initialize_sections(config)
+
+    if not sections:
+        raise RuntimeError("No sections configured to watch. Please add sections in config.json.")
+    
+    watch_sections(sections, interval=poll_interval)
+
+if __name__ == "__main__":
+    main()
+
 
 
 
