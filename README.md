@@ -44,8 +44,6 @@ pip install requests twilio python-dotenv
 
 Sensitive credentials are stored in environment variables and are **not included** in this repository.
 
-The template .env file can be found 
-
 # Usage
 
 ## Watch a single section
