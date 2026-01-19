@@ -49,6 +49,32 @@ Sensitive credentials are stored in environment variables and are **not included
 
 An example .env file can be located in the repository that includes a template to configure your ntfy topic for push notifications.
 
+It is best to create and activate a Python virtual environment in the repository directory:
+
+```bash
+python3 -m venv venv
+
+source venv/bin/activate
+```
+
+Once inside the virtual environment, install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Now create the `.env` file in the virtual environment following the `.env.example` template
+
+```bash
+NTFY_TOPIC=your-topic-here
+```
+
+Test the functionality of the script by running `python sniper.py` to ensure there are no errors before exiting the virtual environment
+
+```bash
+deactivate
+```
+
 # Usage
 
 ## Watch multiple sections
