@@ -1,0 +1,7 @@
+{
+  "poll_interval: 60,
+  "sections": [
+    "index",
+    "index2"
+  ]
+}
