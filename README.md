@@ -22,6 +22,7 @@ The script periodically queries:
 https://classes.rutgers.edu/soc/api/openSections.json
 
 This endpoint returns a list of *currently open* sections
+
 If the target section appears in the response, it is considered open
 
 ---
