@@ -10,7 +10,7 @@ This project is intented for **personal use** to track open courses during regis
 
 - Polls the 'openSections.json' API at a configurable interval
 - Checks if specified course section is open or closed
-- Sends a SMS notification when a section opens
+- Sends a push notification when a section opens
 - Designed to be lightweight and respectful of API usage
 
 ---
