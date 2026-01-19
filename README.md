@@ -30,7 +30,7 @@ If the target section appears in the response, it is considered open.
 ## Requirements
 
 - Python 3.9+
-- 'requests'
+- `requests`
 - ntfy for push notifications
 
 Install dependecies:
