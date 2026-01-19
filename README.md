@@ -21,9 +21,9 @@ The script periodically queries:
 
 https://classes.rutgers.edu/soc/api/openSections.json
 
-This endpoint returns a list of *currently open* sections
+This endpoint returns a list of *currently open* sections by their index values.
 
-If the target section appears in the response, it is considered open
+If the target section appears in the response, it is considered open.
 
 ---
 
@@ -37,3 +37,35 @@ Install dependecies:
 
 ```bash
 pip install requests twilio python-dotenv
+```
+# Configuration
+
+## Environment Variables
+
+Sensitive credentials are stored in environment variables and are **not included** in this repository.
+
+The template .env file can be found 
+
+# Usage
+
+## Watch a single section
+
+This is currently the only function supported in the early build of this program. Watching multiple sections will be coming in the future.
+
+The program checks for changes with the API once per minute, consistent with normal browser usage.
+
+A notification is sent out when the section opens.
+
+The program stops running after notifying (configurable).
+
+# Example Output
+
+```less
+Watching 13949... checking every 60 seconds.
+Section 13949 is now OPEN!
+```
+# Disclaimer
+
+This project is not affiliated with or endorsed by Rutgers University and is intended for personal, non-commercial use.
+
+Use responsibly and at your own risk.
