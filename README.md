@@ -32,6 +32,7 @@ If the target section appears in the response, it is considered open.
 - Python 3.9+
 - `requests`
 - ntfy for push notifications
+- tzdata (If running on Windows)
 
 Install dependecies:
 
