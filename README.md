@@ -66,6 +66,8 @@ pip install -r requirements.txt
 Now create the `.env` file in the virtual environment following the `.env.example` template
 
 ```bash
+nano .env
+
 NTFY_TOPIC=your-topic-here
 ```
 
