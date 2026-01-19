@@ -48,21 +48,19 @@ An example .env file can be located in the repository that includes a template t
 
 # Usage
 
-## Watch a single section
+## Watch multiple sections
 
-This is currently the only function supported in the early build of this program. Watching multiple sections will be coming in the future.
+Watch as many sections as desired while keeping API calls consistent at once every 60 seconds.
 
 The program checks for changes with the API once per minute, consistent with normal browser usage.
 
 A notification is sent out when the section opens.
 
-The program stops running after notifying (configurable).
-
 # Example Output
 
 ```less
-Watching 13949... checking every 60 seconds.
-Section 13949 is now OPEN!
+Watching 4 sections... checking every 60 seconds.
+Section 14496 is now OPEN!
 ```
 # Disclaimer
 
