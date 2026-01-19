@@ -66,4 +66,6 @@ Section 14496 is now OPEN!
 
 This project is not affiliated with or endorsed by Rutgers University and is intended for personal, non-commercial use.
 
+This project is my first attempt at using API calls with Python and is a work in progress.
+
 Use responsibly and at your own risk.
