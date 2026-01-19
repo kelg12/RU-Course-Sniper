@@ -25,6 +25,8 @@ This endpoint returns a list of *currently open* sections by their index values.
 
 If the target section appears in the response, it is considered open.
 
+The script respects WebReg downtime (2:00 AM - 5:59 AM) and sleeps during this time
+
 ---
 
 ## Requirements
