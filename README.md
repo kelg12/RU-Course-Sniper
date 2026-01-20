@@ -99,7 +99,7 @@ Start by creating the service file with:
 sudo nano /etc/systemd/system/ru-course-sniper.service
 ```
 
-Now copy and paste the following content, replacing {user} with your local username.
+Now copy and paste the following content, replacing {user} with your local username (assuming you cloned the repository in your home directory).
 
 ```bash
 [Unit]
