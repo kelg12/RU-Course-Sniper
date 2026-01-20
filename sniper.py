@@ -61,7 +61,7 @@ def watch_sections(indices, interval=60):
                 if is_open and not was_open:
                     msg = f"Section {key} is now OPEN!"
                     print(msg, flush=True)
-                    send_push(msg, flush=True)
+                    send_push(msg)
                     indices[key] = True
                 
                 elif not is_open:
@@ -118,6 +118,7 @@ def main(): # Main function loads config file and starts watching sections.
 
 if __name__ == "__main__":
     main()
+
 
 
 
