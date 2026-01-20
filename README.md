@@ -87,6 +87,52 @@ The program checks for changes with the API once per minute, consistent with nor
 
 A notification is sent out when the section opens.
 
+## How to run as background service (recommended)
+
+The way that I am using this script (and how you should too) is letting it run 24/7 in the background on my Raspberry Pi.
+
+The setup is fairly straight forward using the terminal.
+
+Start by creating the service file with:
+
+```bash
+sudo nano /etc/systemd/ststem/ru-course-sniper.service
+```
+
+Now copy and paste the following content, replacing {user} with your local username.
+
+```bash
+[Unit]
+Description=RU Course Sniper
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User={user}
+WorkingDirectory=/home/{user}/RU-Course-Sniper
+ExecStart=/home/{user}/RU-Course-Sniper/venv/bin/python sniper.py
+Restart=always
+RestartSec=30
+EnvironmentFile=/home/{user}/RU-Course-Sniper/.env
+Environment=PYTHONBUFFERED=1
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Now run:
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable ru-course-sniper
+sudo systemctl start ru-course-sniper
+```
+
+Now the service will start running after boot, restart if it crashes, and continiously run in the background.
+
 # Example Output
 
 ```less
