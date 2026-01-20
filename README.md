@@ -96,7 +96,7 @@ The setup is fairly straight forward using the terminal.
 Start by creating the service file with:
 
 ```bash
-sudo nano /etc/systemd/ststem/ru-course-sniper.service
+sudo nano /etc/systemd/system/ru-course-sniper.service
 ```
 
 Now copy and paste the following content, replacing {user} with your local username.
