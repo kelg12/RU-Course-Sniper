@@ -34,7 +34,7 @@ def get_open_sections(year=2026, term=1, campus="NB"): # For term: 0 = Winter, 1
 
 def watch_sections(indices, interval=60):
   
-    print(f"Watching {len(indices)} sections... checking every {interval} seconds.")
+    print(f"Watching {len(indices)} sections... checking every {interval} seconds.", flush=True)
 
     while True:
         now = datetime.now(EASTERN)
@@ -47,20 +47,28 @@ def watch_sections(indices, interval=60):
         try:
             open_sections = get_open_sections()
 
+            print(
+                f"[{now.strftime('%Y-%m-%d %H:%M:%S')}] "
+                f"Checked {len(indices)} sections, "
+                f"{len(open_sections)} currently open",
+                flush=True
+            )
+            
+
             for key, was_open in indices.items():
                 is_open = key in open_sections
 
                 if is_open and not was_open:
                     msg = f"Section {key} is now OPEN!"
-                    print(msg)
-                    send_push(msg)
+                    print(msg, flush=True)
+                    send_push(msg, flush=True)
                     indices[key] = True
                 
                 elif not is_open:
                     indices[key] = False
 
         except Exception as e:
-            print(f"Error checking sections: {e}")
+            print(f"Error checking sections: {e}", flush=True)
 
         time.sleep(interval)
       
@@ -94,7 +102,7 @@ def sleep_until_morning(now): # Sleeps until the end of the blackout window.
         wake_time += timedelta(days=1)
 
     seconds = (wake_time - now).total_seconds()
-    print(f"WebReg offline. Sleeping until {wake_time.strftime('%I:%M %p')}")
+    print(f"WebReg offline. Sleeping until {wake_time.strftime('%I:%M %p')}", flush=True)
     time.sleep(seconds)
 
 def main(): # Main function loads config file and starts watching sections.
