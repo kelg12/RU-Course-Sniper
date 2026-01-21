@@ -24,7 +24,7 @@ EASTERN = ZoneInfo("America/New_York")
 BLACKOUT_START = dtime(2, 0)  # 2:00 AM
 BLACKOUT_END = dtime(6, 0)    # 6:00 AM
 
-def get_open_sections(year=2026, term=1, campus="NB"): # For term: 0 = Winter, 1 = Spring, 2 = Summer?, 3 = Fall? Honestly not sure and cannot access SoC to check until they open.
+def get_open_sections(year=2026, term=1, campus="NB"): # For term: 0 = Winter, 1 = Spring, 7 = Summer, 9 = Fall
     response = requests.get(
         URL,
         params={"year": year, "term": term, "campus": campus}
@@ -118,6 +118,7 @@ def main(): # Main function loads config file and starts watching sections.
 
 if __name__ == "__main__":
     main()
+
 
 
 
